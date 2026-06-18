@@ -285,7 +285,6 @@
       border-bottom: 2px solid #b48d6e;
     }
 
-    /* Style untuk nilai teks di print */
     .field-row .value .text-value {
       display: none;
       font-size: 14px;
@@ -911,6 +910,27 @@
       if (gajiSpan) {
         gajiSpan.textContent = gaji.value || '-';
       }
+
+      // Foto
+      const fotoPreviewImg = document.getElementById('fotoPreviewImg');
+      const fotoPrintImg = document.getElementById('fotoPrintImg');
+      const fotoPrintPlaceholder = document.getElementById('fotoPrintPlaceholder');
+      if (fotoPreviewImg && fotoPreviewImg.src && fotoPreviewImg.src !== '#') {
+        if (fotoPrintImg) {
+          fotoPrintImg.src = fotoPreviewImg.src;
+          fotoPrintImg.style.display = 'block';
+        }
+        if (fotoPrintPlaceholder) {
+          fotoPrintPlaceholder.style.display = 'none';
+        }
+      } else {
+        if (fotoPrintImg) {
+          fotoPrintImg.style.display = 'none';
+        }
+        if (fotoPrintPlaceholder) {
+          fotoPrintPlaceholder.style.display = 'block';
+        }
+      }
     }
 
     // ===== EXPORT PDF APLIKASI =====
@@ -921,7 +941,7 @@
       // 2. Clone card untuk print
       const printCard = document.getElementById('applicationCard').cloneNode(true);
       
-      // 3. Hapus elemen yang tidak diperlukan
+      // 3. Hapus elemen yang tidak diperlukan dari clone
       const exportMenu = printCard.querySelector('.export-menu');
       if (exportMenu) exportMenu.remove();
       const uploadSection = printCard.querySelector('.upload-section');
@@ -929,47 +949,34 @@
       const footerNote = printCard.querySelector('.footer-note');
       if (footerNote) footerNote.remove();
 
-      // 4. Hapus semua input file
+      // 4. Hapus semua input file dari clone
       const allInputs = printCard.querySelectorAll('input[type="file"]');
       allInputs.forEach(inp => inp.remove());
 
-      // 5. Tampilkan foto print
-      const fotoWrapper = printCard.querySelector('.foto-print-wrapper');
-      const fotoPreviewImg = document.getElementById('fotoPreviewImg');
-      const fotoDataURL = fotoPreviewImg ? fotoPreviewImg.src : null;
-      
-      if (fotoWrapper) {
-        fotoWrapper.style.display = 'flex';
-        const img = fotoWrapper.querySelector('img');
-        const placeholder = fotoWrapper.querySelector('.no-foto');
-        if (fotoDataURL && fotoDataURL !== '#' && fotoDataURL !== '') {
-          img.src = fotoDataURL;
-          img.style.display = 'block';
-          if (placeholder) placeholder.style.display = 'none';
-        } else {
-          img.style.display = 'none';
-          if (placeholder) placeholder.style.display = 'block';
-        }
-      }
-
-      // 6. Sembunyikan preview upload di clone
+      // 5. Sembunyikan preview upload di clone
       const previews = printCard.querySelectorAll('.upload-preview');
       previews.forEach(p => p.style.display = 'none');
 
-      // 7. Sembunyikan semua input di clone dan tampilkan text-value
+      // 6. Sembunyikan semua input di clone dan tampilkan text-value
       printCard.querySelectorAll('input, select, textarea').forEach(el => {
         el.style.display = 'none';
       });
 
-      // 8. Tampilkan semua text-value
+      // 7. Tampilkan semua text-value
       printCard.querySelectorAll('.text-value').forEach(el => {
         el.style.display = 'block';
       });
 
-      // 9. Tampilkan checkbox-value
+      // 8. Tampilkan checkbox-value
       printCard.querySelectorAll('.checkbox-value').forEach(el => {
         el.style.display = 'inline-block';
       });
+
+      // 9. Tampilkan foto print wrapper
+      const fotoWrapper = printCard.querySelector('.foto-print-wrapper');
+      if (fotoWrapper) {
+        fotoWrapper.style.display = 'flex';
+      }
 
       // 10. Buat elemen sementara untuk print
       const printDiv = document.createElement('div');
@@ -983,27 +990,31 @@
       printDiv.style.padding = '20px';
       document.body.appendChild(printDiv);
 
-      // 11. Gunakan html2pdf
-      const opt = {
-        margin:       0.5,
-        filename:     'Aplikasi_Karyawan_Pawon_Mbah_Gito.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { 
-          scale: 2, 
-          letterRendering: true, 
-          useCORS: true,
-          width: printDiv.scrollWidth,
-          height: printDiv.scrollHeight
-        },
-        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-      };
+      // 11. Tunggu sebentar agar DOM siap
+      setTimeout(function() {
+        // 12. Gunakan html2pdf
+        const opt = {
+          margin:       0.5,
+          filename:     'Aplikasi_Karyawan_Pawon_Mbah_Gito.pdf',
+          image:        { type: 'jpeg', quality: 0.98 },
+          html2canvas:  { 
+            scale: 2, 
+            letterRendering: true, 
+            useCORS: true,
+            width: printDiv.scrollWidth,
+            height: printDiv.scrollHeight
+          },
+          jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+          pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+        };
 
-      html2pdf().set(opt).from(printDiv).save().then(() => {
-        document.body.removeChild(printDiv);
-      }).catch(() => {
-        document.body.removeChild(printDiv);
-      });
+        html2pdf().set(opt).from(printDiv).save().then(function() {
+          document.body.removeChild(printDiv);
+        }).catch(function(err) {
+          console.error('Error:', err);
+          document.body.removeChild(printDiv);
+        });
+      }, 100);
     });
 
     // ===== EXPORT PORTOFOLIO =====
@@ -1020,7 +1031,9 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      setTimeout(function() {
+        URL.revokeObjectURL(link.href);
+      }, 1000);
     });
 
     // Logo ganti double click
