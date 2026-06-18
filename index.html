@@ -338,7 +338,6 @@
       border-bottom: 2px solid #b48d6e;
     }
 
-    /* Style untuk nilai teks di tabel print */
     td .text-value {
       display: none;
       font-size: 13px;
@@ -492,7 +491,6 @@
         padding: 2px 0 !important;
       }
 
-      /* Sembunyikan input, tampilkan text-value */
       .field-row .value input,
       .field-row .value select {
         display: none !important;
@@ -547,9 +545,6 @@
       }
 
       .statement-area textarea {
-        border: 1px solid #000 !important;
-        font-size: 12px !important;
-        background: white !important;
         display: none !important;
       }
 
@@ -593,8 +588,6 @@
       }
 
       .pertanyaan-lanjutan input {
-        border-bottom: 1px solid #000 !important;
-        background: transparent !important;
         display: none !important;
       }
 
@@ -622,9 +615,6 @@
       }
 
       .tiga-positif-negatif input {
-        border-bottom: 1px solid #000 !important;
-        background: transparent !important;
-        width: 80px !important;
         display: none !important;
       }
 
@@ -877,7 +867,7 @@
         }
       });
 
-      // Pertanyaan lanjutan
+      // Pertanyaan lanjutan - input text
       document.querySelectorAll('.pertanyaan-lanjutan input[type="text"], .pertanyaan-lanjutan input[type="date"]').forEach(function(input) {
         const textSpan = input.parentElement.querySelector('.text-value');
         if (textSpan) {
@@ -925,13 +915,13 @@
 
     // ===== EXPORT PDF APLIKASI =====
     document.getElementById('exportPDFBtn').addEventListener('click', function() {
-      // Isi semua text-value dengan nilai input saat ini
+      // 1. Isi semua text-value dengan nilai input saat ini
       populateTextValues();
 
-      // Clone card untuk print
+      // 2. Clone card untuk print
       const printCard = document.getElementById('applicationCard').cloneNode(true);
       
-      // Hapus tombol export & upload section dari clone
+      // 3. Hapus elemen yang tidak diperlukan
       const exportMenu = printCard.querySelector('.export-menu');
       if (exportMenu) exportMenu.remove();
       const uploadSection = printCard.querySelector('.upload-section');
@@ -939,18 +929,20 @@
       const footerNote = printCard.querySelector('.footer-note');
       if (footerNote) footerNote.remove();
 
-      // Hapus semua input file di clone
+      // 4. Hapus semua input file
       const allInputs = printCard.querySelectorAll('input[type="file"]');
       allInputs.forEach(inp => inp.remove());
 
-      // Tampilkan foto print
+      // 5. Tampilkan foto print
       const fotoWrapper = printCard.querySelector('.foto-print-wrapper');
-      const fotoDataURL = document.getElementById('fotoPreviewImg') ? document.getElementById('fotoPreviewImg').src : null;
+      const fotoPreviewImg = document.getElementById('fotoPreviewImg');
+      const fotoDataURL = fotoPreviewImg ? fotoPreviewImg.src : null;
+      
       if (fotoWrapper) {
         fotoWrapper.style.display = 'flex';
         const img = fotoWrapper.querySelector('img');
         const placeholder = fotoWrapper.querySelector('.no-foto');
-        if (fotoDataURL && fotoDataURL !== '#') {
+        if (fotoDataURL && fotoDataURL !== '#' && fotoDataURL !== '') {
           img.src = fotoDataURL;
           img.style.display = 'block';
           if (placeholder) placeholder.style.display = 'none';
@@ -960,42 +952,49 @@
         }
       }
 
-      // Sembunyikan preview upload di clone
+      // 6. Sembunyikan preview upload di clone
       const previews = printCard.querySelectorAll('.upload-preview');
       previews.forEach(p => p.style.display = 'none');
 
-      // Sembunyikan semua input di clone (karena sudah ada text-value)
+      // 7. Sembunyikan semua input di clone dan tampilkan text-value
       printCard.querySelectorAll('input, select, textarea').forEach(el => {
         el.style.display = 'none';
       });
 
-      // Tampilkan semua text-value di clone
+      // 8. Tampilkan semua text-value
       printCard.querySelectorAll('.text-value').forEach(el => {
         el.style.display = 'block';
       });
 
-      // Tampilkan checkbox-value
+      // 9. Tampilkan checkbox-value
       printCard.querySelectorAll('.checkbox-value').forEach(el => {
         el.style.display = 'inline-block';
       });
 
-      // Buat elemen sementara untuk print
+      // 10. Buat elemen sementara untuk print
       const printDiv = document.createElement('div');
       printDiv.appendChild(printCard);
       printDiv.style.position = 'fixed';
       printDiv.style.left = '-9999px';
       printDiv.style.top = '0';
       printDiv.style.width = '100%';
+      printDiv.style.maxWidth = '1100px';
       printDiv.style.background = 'white';
       printDiv.style.padding = '20px';
       document.body.appendChild(printDiv);
 
-      // Gunakan html2pdf
+      // 11. Gunakan html2pdf
       const opt = {
         margin:       0.5,
         filename:     'Aplikasi_Karyawan_Pawon_Mbah_Gito.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, letterRendering: true, useCORS: true, width: printDiv.scrollWidth },
+        html2canvas:  { 
+          scale: 2, 
+          letterRendering: true, 
+          useCORS: true,
+          width: printDiv.scrollWidth,
+          height: printDiv.scrollHeight
+        },
         jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
         pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
       };
