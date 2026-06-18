@@ -98,7 +98,7 @@
       letter-spacing: 0.3px;
     }
 
-    /* Upload foto & CV */
+    /* Upload section */
     .upload-section {
       display: flex;
       flex-wrap: wrap;
@@ -162,6 +162,61 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    /* Export buttons */
+    .export-menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      justify-content: flex-end;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 2px solid #dacfbf;
+    }
+
+    .btn-export {
+      background: #3d2c1b;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 60px;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.15s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border: 1px solid #5b432b;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-export:hover {
+      background: #5b432b;
+      transform: scale(1.02);
+    }
+
+    .btn-export:active {
+      background: #2b1e12;
+    }
+
+    .btn-export.pdf {
+      background: #8b1a1a;
+      border-color: #6b1515;
+    }
+
+    .btn-export.pdf:hover {
+      background: #a52222;
+    }
+
+    .btn-export.portofolio {
+      background: #1a5a7a;
+      border-color: #134a66;
+    }
+
+    .btn-export.portofolio:hover {
+      background: #20708f;
     }
 
     .form-grid {
@@ -232,12 +287,6 @@
       border-bottom: 2px solid #b48d6e;
     }
 
-    .inline-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 20px;
-    }
-
     .table-wrap {
       overflow-x: auto;
       margin: 12px 0 6px;
@@ -296,14 +345,6 @@
       margin-bottom: 14px;
     }
 
-    .statement-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px 50px;
-      align-items: center;
-      justify-content: space-between;
-    }
-
     .signature {
       display: flex;
       flex-direction: column;
@@ -324,30 +365,6 @@
       font-weight: 500;
     }
 
-    .btn-export {
-      background: #3d2c1b;
-      border: none;
-      padding: 12px 28px;
-      border-radius: 60px;
-      color: white;
-      font-weight: 600;
-      font-size: 15px;
-      cursor: pointer;
-      transition: 0.15s;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      margin-top: 12px;
-      border: 1px solid #5b432b;
-    }
-
-    .btn-export:hover {
-      background: #5b432b;
-      transform: scale(1.02);
-    }
-
-    .btn-export:active {
-      background: #2b1e12;
-    }
-
     .footer-note {
       margin-top: 18px;
       font-size: 12px;
@@ -358,91 +375,236 @@
       padding-top: 14px;
     }
 
-    /* print style */
+    /* ========== PRINT STYLE ========== */
     @media print {
       body {
         background: white !important;
-        padding: 0.3in !important;
-        display: block;
+        padding: 0.5in !important;
+        display: block !important;
+        margin: 0 auto !important;
       }
+
       .card {
         box-shadow: none !important;
-        border: 1px solid #ccc !important;
+        border: 1px solid #000 !important;
         border-radius: 0 !important;
-        padding: 18px 20px !important;
+        padding: 20px 25px !important;
         max-width: 100% !important;
         background: white !important;
+        page-break-after: avoid;
       }
+
+      /* Header: logo + judul */
       .app-header {
-        border-bottom: 1px solid #333 !important;
-        margin-bottom: 16px;
+        border-bottom: 2px solid #000 !important;
+        margin-bottom: 18px !important;
+        padding-bottom: 12px !important;
       }
+
       .logo-area {
-        border: 1px solid #888 !important;
+        border: 1px solid #000 !important;
         background: #f5f0eb !important;
-        width: 70px;
-        height: 70px;
+        width: 70px !important;
+        height: 70px !important;
       }
+
       .title-group h1 {
-        font-size: 24px;
+        font-size: 22px !important;
+        color: #000 !important;
       }
-      .form-section {
-        background: white !important;
-        border: 1px solid #bbb !important;
-        box-shadow: none !important;
-        padding: 10px 12px;
-      }
-      .field-row label {
-        width: 120px;
-        font-size: 12.5px;
-      }
-      .field-row .value {
-        border-bottom: 1px solid #222 !important;
-      }
-      table {
-        box-shadow: none !important;
-        border: 1px solid #888;
-      }
-      th {
+
+      .title-group .sub {
         background: #e5ddd5 !important;
-        border-bottom: 1px solid #333;
+        color: #000 !important;
       }
-      td {
-        border-bottom: 1px solid #aaa;
+
+      /* Foto pelamar di tengah atas */
+      .foto-print-wrapper {
+        display: flex !important;
+        justify-content: center !important;
+        margin: 10px 0 20px 0 !important;
+        padding: 8px 0 !important;
+        border-bottom: 1px solid #ccc !important;
       }
-      .btn-export {
+
+      .foto-print-wrapper img {
+        max-width: 120px !important;
+        max-height: 140px !important;
+        border-radius: 12px !important;
+        border: 2px solid #333 !important;
+        object-fit: cover !important;
+      }
+
+      .foto-print-wrapper .no-foto {
+        font-size: 14px !important;
+        color: #666 !important;
+        padding: 10px 20px !important;
+        border: 2px dashed #999 !important;
+        border-radius: 12px !important;
+      }
+
+      /* Sembunyikan upload section di print */
+      .upload-section {
         display: none !important;
       }
-      .footer-note {
-        display: none;
-      }
-      .statement-grid {
-        gap: 10px;
-      }
-      .signature .line {
-        border-bottom: 1px solid black;
-        width: 140px;
-      }
-      .inline-group {
-        gap: 4px 12px;
-      }
-      .card {
-        border: 1px solid #000 !important;
-      }
+
       .form-grid {
-        gap: 10px 12px;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px 20px !important;
+        page-break-inside: avoid;
       }
-      .upload-section {
-        background: #f5f0eb !important;
-        border: 1px solid #888 !important;
-        padding: 10px 16px;
+
+      .form-section {
+        background: white !important;
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+        padding: 8px 12px !important;
+        page-break-inside: avoid;
       }
-      .upload-item input[type="file"] {
-        border: 1px solid #666;
-        background: white;
+
+      .form-section h3 {
+        font-size: 15px !important;
+        border-left: 4px solid #000 !important;
+        color: #000 !important;
       }
-      .upload-preview img {
-        border: 1px solid #555;
+
+      .field-row label {
+        width: 120px !important;
+        font-size: 12px !important;
+        color: #000 !important;
+      }
+
+      .field-row .value {
+        border-bottom: 1px solid #000 !important;
+        font-size: 12px !important;
+      }
+
+      .field-row .value input,
+      .field-row .value select {
+        border-bottom: 1px solid #000 !important;
+        font-size: 12px !important;
+        color: #000 !important;
+      }
+
+      table {
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+        font-size: 11px !important;
+      }
+
+      th {
+        background: #e5ddd5 !important;
+        border-bottom: 2px solid #000 !important;
+        color: #000 !important;
+        padding: 6px 6px !important;
+      }
+
+      td {
+        border-bottom: 1px solid #000 !important;
+        padding: 4px 6px !important;
+      }
+
+      td input {
+        border-bottom: 1px solid #000 !important;
+        font-size: 11px !important;
+        color: #000 !important;
+      }
+
+      .statement-area {
+        border-top: 2px solid #000 !important;
+        margin-top: 16px !important;
+        padding-top: 14px !important;
+        page-break-inside: avoid;
+      }
+
+      .statement-area p {
+        font-size: 12px !important;
+        color: #000 !important;
+      }
+
+      .statement-area textarea {
+        border: 1px solid #000 !important;
+        font-size: 12px !important;
+        background: white !important;
+      }
+
+      .signature .line {
+        border-bottom: 1px solid #000 !important;
+        width: 150px !important;
+        height: 24px !important;
+      }
+
+      .signature span {
+        color: #000 !important;
+        font-size: 12px !important;
+      }
+
+      .btn-export,
+      .export-menu {
+        display: none !important;
+      }
+
+      .footer-note {
+        display: none !important;
+      }
+
+      /* Pertanyaan lanjutan di print */
+      .pertanyaan-lanjutan {
+        border: 1px solid #000 !important;
+        background: #f9f6f0 !important;
+        padding: 10px 14px !important;
+        margin: 12px 0 !important;
+        border-radius: 0 !important;
+        page-break-inside: avoid;
+      }
+
+      .pertanyaan-lanjutan input {
+        border-bottom: 1px solid #000 !important;
+        background: transparent !important;
+      }
+
+      .tiga-positif-negatif {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px 30px !important;
+        margin: 8px 0 10px !important;
+        page-break-inside: avoid;
+      }
+
+      .tiga-positif-negatif input {
+        border-bottom: 1px solid #000 !important;
+        background: transparent !important;
+        width: 80px !important;
+      }
+
+      /* pastikan tidak terpotong */
+      .card {
+        page-break-inside: avoid;
+      }
+
+      .form-grid > div {
+        page-break-inside: avoid;
+      }
+
+      /* Header & Footer print */
+      @page {
+        margin: 0.5in;
+        size: A4 portrait;
+      }
+
+      @page {
+        @top-center {
+          content: "Aplikasi Calon Karyawan Pawon Mbah Gito";
+          font-size: 12pt;
+          font-weight: bold;
+          color: #333;
+        }
+        @bottom-center {
+          content: "Halaman " counter(page);
+          font-size: 10pt;
+          color: #666;
+        }
       }
     }
 
@@ -471,7 +633,7 @@
   <!-- HEADER dengan LOGO -->
   <div class="app-header">
     <div class="logo-area" id="logoContainer" title="Klik dua kali untuk ganti logo">
-      <img src="https://ibb.co.com/cSjKxHGP" alt="Logo Perusahaan" id="logoImg" style="display:block;">
+      <img src="https://via.placeholder.com/80x80?text=Logo" alt="Logo Perusahaan" id="logoImg" style="display:block;">
     </div>
     <div class="title-group">
       <h1>Pawon Mbah Gito</h1>
@@ -500,35 +662,41 @@
     </div>
   </div>
 
+  <!-- ===== FOTO PRINT (hanya muncul di print) ===== -->
+  <div class="foto-print-wrapper" style="display:none;">
+    <img id="fotoPrintImg" src="#" alt="Foto Pelamar" style="display:none;">
+    <span class="no-foto" id="fotoPrintPlaceholder">Foto Pelamar</span>
+  </div>
+
   <!-- FORMULIR 2 kolom -->
   <div class="form-grid">
     <!-- Kiri -->
     <div>
       <div class="form-section">
         <h3>📋 Data Pribadi</h3>
-        <div class="field-row"><label>Posisi dilamar</label><div class="value"><input type="text" placeholder="contoh: Cook Helper" value=""></div></div>
-        <div class="field-row"><label>Tgl. Pengisian</label><div class="value"><input type="date" value="2026-06-18"></div></div>
-        <div class="field-row"><label>Nama Lengkap</label><div class="value"><input type="text" placeholder="Nama lengkap" value=""></div></div>
-        <div class="field-row"><label>Alamat KTP</label><div class="value"><input type="text" placeholder="Jl. ..." value=""></div></div>
-        <div class="field-row"><label>No. Handphone</label><div class="value"><input type="text" placeholder="08xx" value=""></div></div>
-        <div class="field-row"><label>No. Keluarga</label><div class="value"><input type="text" placeholder="kontak darurat" value=""></div></div>
-        <div class="field-row"><label>Alamat Domisili</label><div class="value"><input type="text" placeholder="jika berbeda" value=""></div></div>
-        <div class="field-row"><label>Email</label><div class="value"><input type="email" placeholder="email@domain.com" value=""></div></div>
-        <div class="field-row"><label>Tempat lahir</label><div class="value"><input type="text" placeholder="Kota" value=""></div></div>
-        <div class="field-row"><label>Tgl. Lahir</label><div class="value"><input type="date" value=""></div></div>
-        <div class="field-row"><label>Status Pernikahan</label><div class="value"><input type="text" placeholder="Menikah/Belum" value=""></div></div>
-        <div class="field-row"><label>Jml tanggungan</label><div class="value"><input type="number" min="0" value="0"></div></div>
-        <div class="field-row"><label>Gol. Darah</label><div class="value"><input type="text" placeholder="A/B/O/AB" value=""></div></div>
-        <div class="field-row"><label>Tinggi & BB</label><div class="value"><input type="text" placeholder="170 cm / 65 kg" value=""></div></div>
-        <div class="field-row"><label>Agama</label><div class="value"><input type="text" placeholder="Islam/Kristen..." value=""></div></div>
-        <div class="field-row"><label>Hobi</label><div class="value"><input type="text" placeholder="Membaca" value=""></div></div>
-        <div class="field-row"><label>MedSos (Ig/Fb/TikTok)</label><div class="value"><input type="text" placeholder="@username" value=""></div></div>
+        <div class="field-row"><label>Posisi dilamar</label><div class="value"><input type="text" id="posisi" placeholder="contoh: Cook Helper" value=""></div></div>
+        <div class="field-row"><label>Tgl. Pengisian</label><div class="value"><input type="date" id="tglPengisian" value="2026-06-18"></div></div>
+        <div class="field-row"><label>Nama Lengkap</label><div class="value"><input type="text" id="namaLengkap" placeholder="Nama lengkap" value=""></div></div>
+        <div class="field-row"><label>Alamat KTP</label><div class="value"><input type="text" id="alamatKTP" placeholder="Jl. ..." value=""></div></div>
+        <div class="field-row"><label>No. Handphone</label><div class="value"><input type="text" id="noHP" placeholder="08xx" value=""></div></div>
+        <div class="field-row"><label>No. Keluarga</label><div class="value"><input type="text" id="noKeluarga" placeholder="kontak darurat" value=""></div></div>
+        <div class="field-row"><label>Alamat Domisili</label><div class="value"><input type="text" id="alamatDomisili" placeholder="jika berbeda" value=""></div></div>
+        <div class="field-row"><label>Email</label><div class="value"><input type="email" id="email" placeholder="email@domain.com" value=""></div></div>
+        <div class="field-row"><label>Tempat lahir</label><div class="value"><input type="text" id="tempatLahir" placeholder="Kota" value=""></div></div>
+        <div class="field-row"><label>Tgl. Lahir</label><div class="value"><input type="date" id="tglLahir" value=""></div></div>
+        <div class="field-row"><label>Status Pernikahan</label><div class="value"><input type="text" id="statusNikah" placeholder="Menikah/Belum" value=""></div></div>
+        <div class="field-row"><label>Jml tanggungan</label><div class="value"><input type="number" id="tanggungan" min="0" value="0"></div></div>
+        <div class="field-row"><label>Gol. Darah</label><div class="value"><input type="text" id="golDarah" placeholder="A/B/O/AB" value=""></div></div>
+        <div class="field-row"><label>Tinggi & BB</label><div class="value"><input type="text" id="tinggiBB" placeholder="170 cm / 65 kg" value=""></div></div>
+        <div class="field-row"><label>Agama</label><div class="value"><input type="text" id="agama" placeholder="Islam/Kristen..." value=""></div></div>
+        <div class="field-row"><label>Hobi</label><div class="value"><input type="text" id="hobi" placeholder="Membaca" value=""></div></div>
+        <div class="field-row"><label>MedSos (Ig/Fb/TikTok)</label><div class="value"><input type="text" id="medsos" placeholder="@username" value=""></div></div>
       </div>
 
       <div class="form-section" style="margin-top: 10px;">
         <h3>📌 Pertanyaan Personal</h3>
-        <div class="field-row"><label>Dari mana tahu lowongan?</label><div class="value"><input type="text" placeholder="contoh: Instagram" value=""></div></div>
-        <div class="field-row"><label>Kontrak dengan perusahaan lain?</label><div class="value"><input type="text" placeholder="Ya / Tidak" value=""></div></div>
+        <div class="field-row"><label>Dari mana tahu lowongan?</label><div class="value"><input type="text" id="sumberLowongan" placeholder="contoh: Instagram" value=""></div></div>
+        <div class="field-row"><label>Kontrak dengan perusahaan lain?</label><div class="value"><input type="text" id="kontrakLain" placeholder="Ya / Tidak" value=""></div></div>
       </div>
     </div>
 
@@ -540,12 +708,12 @@
           <table>
             <thead><tr><th>Keluarga</th><th>Nama</th><th>L/P</th><th>Pekerjaan</th><th>No. HP</th><th>Instansi</th></tr></thead>
             <tbody>
-              <tr><td>Ayah</td><td><input type="text" value=""></td><td><input type="text" style="width:40px;"></td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr>
-              <tr><td>Ibu</td><td><input type="text" value=""></td><td><input type="text" style="width:40px;"></td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr>
-              <tr><td>Istri/Suami</td><td><input type="text" value=""></td><td><input type="text" style="width:40px;"></td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr>
-              <tr><td>Anak ke-1</td><td><input type="text" value=""></td><td><input type="text" style="width:40px;"></td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr>
-              <tr><td>Anak ke-2</td><td><input type="text" value=""></td><td><input type="text" style="width:40px;"></td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr>
-              <tr><td>Anak ke-3</td><td><input type="text" value=""></td><td><input type="text" style="width:40px;"></td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr>
+              <tr><td>Ayah</td><td><input type="text" id="ayahNama" value=""></td><td><input type="text" id="ayahLP" style="width:40px;"></td><td><input type="text" id="ayahPekerjaan" value=""></td><td><input type="text" id="ayahHP" value=""></td><td><input type="text" id="ayahInstansi" value=""></td></tr>
+              <tr><td>Ibu</td><td><input type="text" id="ibuNama" value=""></td><td><input type="text" id="ibuLP" style="width:40px;"></td><td><input type="text" id="ibuPekerjaan" value=""></td><td><input type="text" id="ibuHP" value=""></td><td><input type="text" id="ibuInstansi" value=""></td></tr>
+              <tr><td>Istri/Suami</td><td><input type="text" id="pasanganNama" value=""></td><td><input type="text" id="pasanganLP" style="width:40px;"></td><td><input type="text" id="pasanganPekerjaan" value=""></td><td><input type="text" id="pasanganHP" value=""></td><td><input type="text" id="pasanganInstansi" value=""></td></tr>
+              <tr><td>Anak ke-1</td><td><input type="text" id="anak1Nama" value=""></td><td><input type="text" id="anak1LP" style="width:40px;"></td><td><input type="text" id="anak1Pekerjaan" value=""></td><td><input type="text" id="anak1HP" value=""></td><td><input type="text" id="anak1Instansi" value=""></td></tr>
+              <tr><td>Anak ke-2</td><td><input type="text" id="anak2Nama" value=""></td><td><input type="text" id="anak2LP" style="width:40px;"></td><td><input type="text" id="anak2Pekerjaan" value=""></td><td><input type="text" id="anak2HP" value=""></td><td><input type="text" id="anak2Instansi" value=""></td></tr>
+              <tr><td>Anak ke-3</td><td><input type="text" id="anak3Nama" value=""></td><td><input type="text" id="anak3LP" style="width:40px;"></td><td><input type="text" id="anak3Pekerjaan" value=""></td><td><input type="text" id="anak3HP" value=""></td><td><input type="text" id="anak3Instansi" value=""></td></tr>
             </tbody>
           </table>
         </div>
@@ -557,9 +725,9 @@
           <table>
             <thead><tr><th>Tingkat</th><th>Nama Sekolah</th><th>Jurusan</th><th>Tahun Lulus</th></tr></thead>
             <tbody>
-              <tr><td>SMP</td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr>
-              <tr><td>SMA/SMK</td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr>
-              <tr><td>D3/S1</td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr>
+              <tr><td>SMP</td><td><input type="text" id="smpNama" value=""></td><td><input type="text" id="smpJurusan" value=""></td><td><input type="text" id="smpTahun" value=""></td></tr>
+              <tr><td>SMA/SMK</td><td><input type="text" id="smaNama" value=""></td><td><input type="text" id="smaJurusan" value=""></td><td><input type="text" id="smaTahun" value=""></td></tr>
+              <tr><td>D3/S1</td><td><input type="text" id="kuliahNama" value=""></td><td><input type="text" id="kuliahJurusan" value=""></td><td><input type="text" id="kuliahTahun" value=""></td></tr>
             </tbody>
           </table>
         </div>
@@ -570,14 +738,14 @@
         <div class="table-wrap">
           <table>
             <thead><tr><th>Nama Organisasi</th><th>Jabatan</th><th>Periode</th></tr></thead>
-            <tbody><tr><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr></tbody>
+            <tbody><tr><td><input type="text" id="organisasiNama" value=""></td><td><input type="text" id="organisasiJabatan" value=""></td><td><input type="text" id="organisasiPeriode" value=""></td></tr></tbody>
           </table>
         </div>
         <h3 style="margin-top: 14px;">💼 Pengalaman Kerja</h3>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Perusahaan</th><th>Jabatan</th><th>Periode (masuk-keluar)</th><th>Gaji terakhir</th></tr></thead>
-            <tbody><tr><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td><td><input type="text" value=""></td></tr></tbody>
+            <tbody><tr><td><input type="text" id="pengalamanPerusahaan" value=""></td><td><input type="text" id="pengalamanJabatan" value=""></td><td><input type="text" id="pengalamanPeriode" value=""></td><td><input type="text" id="pengalamanGaji" value=""></td></tr></tbody>
           </table>
         </div>
       </div>
@@ -585,31 +753,31 @@
   </div>
 
   <!-- PERTANYAAN LANJUTAN -->
-  <div style="margin: 20px 0 10px; display: flex; flex-wrap: wrap; gap: 10px 30px; background: #f7f2eb; padding: 12px 18px; border-radius: 24px;">
-    <div style="font-size:14px;"><strong>Nama Perusahaan saat ini:</strong> <input type="text" placeholder="(jika ada)" style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:150px;"></div>
-    <div style="font-size:14px;"><strong>Satu hal menggambarkan diri:</strong> <input type="text" placeholder="..." style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:150px;"></div>
-    <div style="font-size:14px;"><input type="checkbox"> Pernah kecelakaan berat</div>
-    <div style="font-size:14px;"><input type="checkbox"> Pernah rawat inap (penyakit: <input type="text" placeholder="..." style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:100px;">)</div>
-    <div style="font-size:14px;"><strong>Riwayat penyakit:</strong> <input type="text" placeholder="..." style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:120px;"></div>
-    <div style="font-size:14px;"><input type="checkbox"> Bersedia surat sehat</div>
-    <div style="font-size:14px;"><input type="checkbox"> Pernah kriminalitas</div>
-    <div style="font-size:14px;"><input type="checkbox"> Bersedia SKCK</div>
-    <div style="font-size:14px;"><strong>Kesiapan kerja:</strong> <input type="text" placeholder="tanggal" style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:120px;"></div>
+  <div class="pertanyaan-lanjutan" style="margin: 20px 0 10px; display: flex; flex-wrap: wrap; gap: 10px 30px; background: #f7f2eb; padding: 12px 18px; border-radius: 24px;">
+    <div style="font-size:14px;"><strong>Nama Perusahaan saat ini:</strong> <input type="text" id="perusahaanSaatIni" placeholder="(jika ada)" style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:150px;"></div>
+    <div style="font-size:14px;"><strong>Satu hal menggambarkan diri:</strong> <input type="text" id="satuHal" placeholder="..." style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:150px;"></div>
+    <div style="font-size:14px;"><input type="checkbox" id="cekKecelakaan"> Pernah kecelakaan berat</div>
+    <div style="font-size:14px;"><input type="checkbox" id="cekRawatInap"> Pernah rawat inap (penyakit: <input type="text" id="penyakitRawatInap" placeholder="..." style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:100px;">)</div>
+    <div style="font-size:14px;"><strong>Riwayat penyakit:</strong> <input type="text" id="riwayatPenyakit" placeholder="..." style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:120px;"></div>
+    <div style="font-size:14px;"><input type="checkbox" id="cekSuratSehat"> Bersedia surat sehat</div>
+    <div style="font-size:14px;"><input type="checkbox" id="cekKriminal"> Pernah kriminalitas</div>
+    <div style="font-size:14px;"><input type="checkbox" id="cekSKCK"> Bersedia SKCK</div>
+    <div style="font-size:14px;"><strong>Kesiapan kerja:</strong> <input type="text" id="kesiapanKerja" placeholder="tanggal" style="border:none;border-bottom:1px solid #b8a48c;background:transparent;width:120px;"></div>
   </div>
 
   <!-- 3 positif & 3 negatif -->
-  <div style="display: flex; flex-wrap: wrap; gap: 20px 50px; margin: 6px 0 12px;">
-    <div><strong>3 Hal Positif:</strong> <input type="text" placeholder="1." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"> <input type="text" placeholder="2." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"> <input type="text" placeholder="3." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"></div>
-    <div><strong>3 Hal Negatif:</strong> <input type="text" placeholder="1." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"> <input type="text" placeholder="2." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"> <input type="text" placeholder="3." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"></div>
+  <div class="tiga-positif-negatif" style="display: flex; flex-wrap: wrap; gap: 20px 50px; margin: 6px 0 12px;">
+    <div><strong>3 Hal Positif:</strong> <input type="text" id="positif1" placeholder="1." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"> <input type="text" id="positif2" placeholder="2." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"> <input type="text" id="positif3" placeholder="3." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"></div>
+    <div><strong>3 Hal Negatif:</strong> <input type="text" id="negatif1" placeholder="1." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"> <input type="text" id="negatif2" placeholder="2." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"> <input type="text" id="negatif3" placeholder="3." style="width:100px;border:none;border-bottom:1px solid #b8a48c;background:transparent;"></div>
   </div>
 
   <!-- PERNYATAAN -->
   <div class="statement-area">
     <p><strong>Pernyataan:</strong> Jelaskan mengapa Anda menginginkan posisi ini & mengapa kami harus menerima Anda?</p>
-    <div style="margin-bottom:14px;"><textarea rows="2" style="width:100%;border:1px solid #d6c9b9;border-radius:14px;padding:10px;font-family:inherit;background:#fcfaf7;" placeholder="Tulis alasan dan value Anda..."></textarea></div>
+    <div style="margin-bottom:14px;"><textarea id="alasan" rows="2" style="width:100%;border:1px solid #d6c9b9;border-radius:14px;padding:10px;font-family:inherit;background:#fcfaf7;" placeholder="Tulis alasan dan value Anda..."></textarea></div>
     <div style="display:flex; flex-wrap:wrap; gap:20px 40px; align-items:center;">
-      <div><strong>Gaji yang diinginkan:</strong> <input type="text" placeholder="Rp ..." style="border:none;border-bottom:1px solid #3d2c1b;background:transparent;width:140px;"></div>
-      <div style="display:flex; gap:10px; align-items:center;"><input type="checkbox"> Saya bersedia dimutasikan posisi lain jika diperlukan</div>
+      <div><strong>Gaji yang diinginkan:</strong> <input type="text" id="gajiDiinginkan" placeholder="Rp ..." style="border:none;border-bottom:1px solid #3d2c1b;background:transparent;width:140px;"></div>
+      <div style="display:flex; gap:10px; align-items:center;"><input type="checkbox" id="cekMutasi"> Saya bersedia dimutasikan posisi lain jika diperlukan</div>
     </div>
     <div style="margin-top: 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end;">
       <div style="font-size:14px; max-width:500px;"><em>Dengan ini saya menyatakan bahwa informasi yang saya berikan adalah benar dan siap bertanggung jawab apabila dikemudian hari terdapat informasi yang tidak benar atau tidak sesuai dengan kebenarannya.</em></div>
@@ -622,23 +790,17 @@
     </div>
   </div>
 
-  <!-- tombol export -->
-  <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
-    <button class="btn-export" id="exportBtn">📄 Export / Cetak (PDF)</button>
+  <!-- EXPORT MENU -->
+  <div class="export-menu">
+    <button class="btn-export pdf" id="exportPDFBtn">📄 Download PDF (Aplikasi)</button>
+    <button class="btn-export portofolio" id="exportPortofolioBtn">📎 Download Portofolio</button>
   </div>
   <div class="footer-note">Pawon Mbah Gito · Strictly Confidential</div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   (function() {
-    // Export / print
-    const exportBtn = document.getElementById('exportBtn');
-    if (exportBtn) {
-      exportBtn.addEventListener('click', function() {
-        window.print();
-      });
-    }
-
     // Logo ganti double click
     const logoContainer = document.getElementById('logoContainer');
     const logoImg = document.getElementById('logoImg');
@@ -668,11 +830,14 @@
     const fotoPreview = document.getElementById('fotoPreview');
     const fotoPreviewImg = document.getElementById('fotoPreviewImg');
     const fotoFileName = document.getElementById('fotoFileName');
+    const fotoPrintImg = document.getElementById('fotoPrintImg');
+    const fotoPrintPlaceholder = document.getElementById('fotoPrintPlaceholder');
+    let fotoDataURL = null;
 
     fotoInput.addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (file) {
-        const maxSize = 2 * 1024 * 1024; // 2 MB
+        const maxSize = 2 * 1024 * 1024;
         if (file.size > maxSize) {
           alert('Ukuran file terlalu besar! Maksimal 2 MB.');
           fotoInput.value = '';
@@ -688,13 +853,21 @@
         }
         const reader = new FileReader();
         reader.onload = function(ev) {
-          fotoPreviewImg.src = ev.target.result;
+          fotoDataURL = ev.target.result;
+          fotoPreviewImg.src = fotoDataURL;
           fotoFileName.textContent = file.name.length > 20 ? file.name.substring(0, 18) + '…' : file.name;
           fotoPreview.style.display = 'flex';
+          // Update print foto
+          fotoPrintImg.src = fotoDataURL;
+          fotoPrintImg.style.display = 'block';
+          fotoPrintPlaceholder.style.display = 'none';
         };
         reader.readAsDataURL(file);
       } else {
         fotoPreview.style.display = 'none';
+        fotoDataURL = null;
+        fotoPrintImg.style.display = 'none';
+        fotoPrintPlaceholder.style.display = 'block';
       }
     });
 
@@ -702,6 +875,8 @@
     const cvInput = document.getElementById('cvFile');
     const cvPreview = document.getElementById('cvPreview');
     const cvFileName = document.getElementById('cvFileName');
+    let cvDataURL = null;
+    let cvFileObj = null;
 
     cvInput.addEventListener('change', function(e) {
       const file = e.target.files[0];
@@ -713,12 +888,102 @@
           cvPreview.style.display = 'none';
           return;
         }
-        cvFileName.textContent = file.name.length > 24 ? file.name.substring(0, 22) + '…' : file.name;
-        cvPreview.style.display = 'flex';
+        cvFileObj = file;
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          cvDataURL = ev.target.result;
+          cvFileName.textContent = file.name.length > 24 ? file.name.substring(0, 22) + '…' : file.name;
+          cvPreview.style.display = 'flex';
+        };
+        reader.readAsDataURL(file);
       } else {
         cvPreview.style.display = 'none';
+        cvDataURL = null;
+        cvFileObj = null;
       }
     });
+
+    // ===== EXPORT PDF APLIKASI =====
+    document.getElementById('exportPDFBtn').addEventListener('click', function() {
+      // Clone card untuk print
+      const printCard = document.getElementById('applicationCard').cloneNode(true);
+      
+      // Hapus tombol export & upload section dari clone
+      const exportMenu = printCard.querySelector('.export-menu');
+      if (exportMenu) exportMenu.remove();
+      const uploadSection = printCard.querySelector('.upload-section');
+      if (uploadSection) uploadSection.remove();
+      const footerNote = printCard.querySelector('.footer-note');
+      if (footerNote) footerNote.remove();
+
+      // Sembunyikan input file di clone
+      const allInputs = printCard.querySelectorAll('input[type="file"]');
+      allInputs.forEach(inp => inp.remove());
+
+      // Tampilkan foto print
+      const fotoWrapper = printCard.querySelector('.foto-print-wrapper');
+      if (fotoWrapper) {
+        fotoWrapper.style.display = 'flex';
+        const img = fotoWrapper.querySelector('img');
+        const placeholder = fotoWrapper.querySelector('.no-foto');
+        if (fotoDataURL) {
+          img.src = fotoDataURL;
+          img.style.display = 'block';
+          if (placeholder) placeholder.style.display = 'none';
+        } else {
+          img.style.display = 'none';
+          if (placeholder) placeholder.style.display = 'block';
+        }
+      }
+
+      // Sembunyikan preview upload di clone
+      const previews = printCard.querySelectorAll('.upload-preview');
+      previews.forEach(p => p.style.display = 'none');
+
+      // Buat elemen sementara untuk print
+      const printDiv = document.createElement('div');
+      printDiv.appendChild(printCard);
+      printDiv.style.position = 'fixed';
+      printDiv.style.left = '-9999px';
+      printDiv.style.top = '0';
+      printDiv.style.width = '100%';
+      printDiv.style.background = 'white';
+      printDiv.style.padding = '20px';
+      document.body.appendChild(printDiv);
+
+      // Gunakan html2pdf
+      const opt = {
+        margin:       0.5,
+        filename:     'Aplikasi_Karyawan_Pawon_Mbah_Gito.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, letterRendering: true, useCORS: true },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      html2pdf().set(opt).from(printDiv).save().then(() => {
+        document.body.removeChild(printDiv);
+      }).catch(() => {
+        document.body.removeChild(printDiv);
+      });
+    });
+
+    // ===== EXPORT PORTOFOLIO =====
+    document.getElementById('exportPortofolioBtn').addEventListener('click', function() {
+      if (!cvFileObj) {
+        alert('Silakan upload CV / Portofolio terlebih dahulu!');
+        return;
+      }
+      // Download file yang diupload
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(cvFileObj);
+      link.download = cvFileObj.name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    });
+
   })();
 </script>
 </body>
